@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var ChargesAndFieldsConstants = require( 'CHARGES_AND_FIELDS/charges-and-fields/ChargesAndFieldsConstants' );
   var ChargedParticle = require( 'CHARGES_AND_FIELDS/charges-and-fields/model/ChargedParticle' );
+  var ElectricFieldLine = require( 'CHARGES_AND_FIELDS/charges-and-fields/model/ElectricFieldLine' );
   var ElectricFieldSensor = require( 'CHARGES_AND_FIELDS/charges-and-fields/model/ElectricFieldSensor' );
   var ElectricPotentialLine = require( 'CHARGES_AND_FIELDS/charges-and-fields/model/ElectricPotentialLine' );
   var ElectricPotentialSensor = require( 'CHARGES_AND_FIELDS/charges-and-fields/model/ElectricPotentialSensor' );
@@ -144,6 +145,11 @@ define( function( require ) {
     // @public read-only
     this.electricPotentialLines = new ObservableArray(); // {ObservableArray.<ElectricPotentialLine>}
 
+
+    // observable array that contains the model of electricPotential line, each element is an electric field line
+    // @public read-only
+    this.electricFieldLinesArray = new ObservableArray(); // {ObservableArray.<ElectricFieldLine>}
+
     //----------------------------------------------------------------------------------------
     //
     // Hook up all the listeners the model
@@ -173,6 +179,10 @@ define( function( require ) {
         // clear all electricPotential lines, i.e. remove all elements from the electricPotentialLines
         self.clearElectricPotentialLines();
 
+
+        // clear all electric field lines, i.e. remove all elements from the electricFieldLinesArray
+        self.clearElectricFieldLines();
+
         if ( isActive ) {
           // add particle to the activeChargedParticle observable array
           // use for the webGlNode
@@ -201,6 +211,8 @@ define( function( require ) {
 
           // remove electricPotential lines and electric field lines when the position of a charged particle changes and the charge isActive
           self.clearElectricPotentialLines();
+
+          self.clearElectricFieldLines();
 
           // if oldPosition doesn't exist then calculate the sensor properties from the charge configurations (from scratch)
           if ( oldPosition === null ) {
@@ -262,6 +274,7 @@ define( function( require ) {
 
         // Remove electricPotential lines and electric field lines
         self.clearElectricPotentialLines();
+        self.clearElectricFieldLines();
 
         // Update all the visible sensors
         self.updateAllSensors();
@@ -628,12 +641,57 @@ define( function( require ) {
     },
 
     /**
+     * Push an electricFieldLine to an observable array
+     * The drawing of the electricField Line is handled in the view.
+     * @public
+     * @param {Vector2} position - starting point to calculate the electric field line
+     */
+    addElectricFieldLine: function( position ) {
+      // electric field lines don't exist in a vacuum of charges
+
+      var electricFieldLine = new ElectricFieldLine(
+        position,
+        this.enlargedBounds,
+        this.activeChargedParticles,
+        this.getElectricField.bind( this ),
+        this.isPlayAreaChargedProperty );
+
+      if ( electricFieldLine.isLinePresent ) {
+        this.electricFieldLinesArray.push( electricFieldLine );
+      }
+    },
+
+    /**
+     * Push many electric Field Lines to an observable array
+     * The drawing of the electric Field Lines and electric Potential Lines is handled in the view.
+     * @param {number} numberOfLines
+     * USED IN DEBUGGING MODE
+     */
+    addManyElectricFieldLines: function( numberOfLines ) {
+      var i;
+      for ( i = 0; i < numberOfLines; i++ ) {
+        var position = new Vector2( WIDTH * (phet.joist.random() - 0.5), HEIGHT * (phet.joist.random() - 0.5) ); // a random position on the graph
+        this.addElectricFieldLine( position );
+      }
+    },
+
+
+    /**
      * Function that clears the Equipotential Lines Observable Array
      * @public
      */
     clearElectricPotentialLines: function() {
       this.electricPotentialLines.clear();
+    },
+
+    /**
+     * Function that clears the Electric Field Lines Observable Array
+     * @public
+     */
+    clearElectricFieldLines: function() {
+      this.electricFieldLinesArray.clear();
     }
+
   } );
 } );
 
