@@ -5,6 +5,8 @@ at the University of Colorado Boulder.
 
 This forked version supports electric field lines. Electric field lines are displayed when double tapping/clicking on an electric field sensor.
 
+<img src="https://raw.githubusercontent.com/veillette/charges-and-fields/master/assets/Charges-And-Fields-Screenshot-With-E-Lines.png" alt="Screenshot" style="width: 400px;"/>
+
 ### Documentation
 The <a href="http://bit.ly/phet-development-overview" target="_blank">PhET Development Overview</a> is the most complete guide to PhET Simulation
 Development. This guide includes how to obtain simulation code and its dependencies, notes about architecture & design, how to test and build
