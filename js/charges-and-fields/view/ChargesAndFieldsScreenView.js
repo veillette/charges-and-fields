@@ -25,6 +25,7 @@ define( function( require ) {
   var ElectricPotentialWebGLNode = require( 'CHARGES_AND_FIELDS/charges-and-fields/view/ElectricPotentialWebGLNode' );
   var ElectricPotentialMobileWebGLNode = require( 'CHARGES_AND_FIELDS/charges-and-fields/view/ElectricPotentialMobileWebGLNode' );
   var ElectricPotentialLinesNode = require( 'CHARGES_AND_FIELDS/charges-and-fields/view/ElectricPotentialLinesNode' );
+  var ElectricFieldLinesNode = require( 'CHARGES_AND_FIELDS/charges-and-fields/view/ElectricFieldLinesNode' );
   var ChargesAndFieldsMeasuringTapeNode = require( 'CHARGES_AND_FIELDS/charges-and-fields/view/ChargesAndFieldsMeasuringTapeNode' );
   var GridNode = require( 'CHARGES_AND_FIELDS/charges-and-fields/view/GridNode' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -129,6 +130,11 @@ define( function( require ) {
       model.electricPotentialLines,
       modelViewTransform,
       model.areValuesVisibleProperty );
+
+    // Create the scenery node responsible for drawing the electric field lines
+    var electricFieldLinesNode = new ElectricFieldLinesNode(
+      model.electricFieldLinesArray,
+      modelViewTransform );
 
     // Create the draggable electric potential sensor node with a electric potential readout
     var electricPotentialSensorNode = new ElectricPotentialSensorNode(
@@ -257,6 +263,7 @@ define( function( require ) {
       // Create and add the view representation for this electric Field Sensor
       var electricFieldSensorNode = new ElectricFieldSensorNode(
         addedElectricFieldSensor,
+        model.addElectricFieldLine.bind( model ),
         modelViewTransform,
         self.availableModelBoundsProperty,
         model.isPlayAreaChargedProperty,
@@ -327,6 +334,7 @@ define( function( require ) {
     this.addChild( gridNode );
     this.addChild( electricFieldGridNode );
     this.addChild( electricPotentialLinesNode );
+    this.addChild( electricFieldLinesNode );
     this.addChild( toolboxPanel );
     this.addChild( controlPanel );
     this.addChild( resetAllButton );
