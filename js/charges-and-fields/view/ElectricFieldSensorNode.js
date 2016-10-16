@@ -35,6 +35,7 @@ define( function( require ) {
   /**
    * Constructor for the ElectricFieldSensorNode which renders the sensor as a scenery node.
    * @param {ElectricFieldSensor} electricFieldSensor
+   * @param {Function} addElectricFieldLine - function that add an electricFieldLine to the model
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Property.<Bounds2>} availableModelBoundsProperty - dragBounds for the electric field sensor node
    * @param {Property.<boolean>} isPlayAreaChargedProperty - is there at least one charged particle on the board
@@ -43,12 +44,13 @@ define( function( require ) {
    * @constructor
    */
   function ElectricFieldSensorNode( electricFieldSensor,
-    modelViewTransform,
-    availableModelBoundsProperty,
-    isPlayAreaChargedProperty,
-    areValuesVisibleProperty,
-    enclosureBounds,
-    tandem ) {
+                                    addElectricFieldLine,
+                                    modelViewTransform,
+                                    availableModelBoundsProperty,
+                                    isPlayAreaChargedProperty,
+                                    areValuesVisibleProperty,
+                                    enclosureBounds,
+                                    tandem ) {
 
     ElectricFieldSensorRepresentationNode.call( this );
 
@@ -131,9 +133,10 @@ define( function( require ) {
 
         var angleString = Util.toFixed( Util.toDegrees( angle ), 1 );
         directionLabel.text = isPlayAreaChargedProperty.get() ?
-          StringUtils.format( pattern0Value1UnitsString, angleString, angleUnitString ) : '';
+                              StringUtils.format( pattern0Value1UnitsString, angleString, angleUnitString ) : '';
 
-      } else {
+      }
+      else {
         arrowNode.visible = false;
 
         fieldStrengthLabel.text = '-';
@@ -189,6 +192,8 @@ define( function( require ) {
 
     this.movableDragHandler = new MovableDragHandler(
       electricFieldSensor.positionProperty, {
+        startNewTime: 0,
+        startOldTime: 0,
         tandem: tandem.createTandem( 'movableDragHandler' ),
         dragBounds: availableModelBoundsProperty.value,
         modelViewTransform: modelViewTransform,
@@ -202,9 +207,18 @@ define( function( require ) {
 
             var globalPoint = self.globalToParentPoint( event.pointer.point );
 
-            if ( event.pointer.isTouch ) {
-              globalPoint.addXY( 0, -2 * ChargesAndFieldsConstants.ELECTRIC_FIELD_SENSOR_CIRCLE_RADIUS );
+
+            // Add an electricFieldLine on a double click event
+            this.startNewTime = new Date().getTime();
+            var timeDifference = this.startNewTime - this.startOldTime; // in milliseconds
+            if ( timeDifference < 300 ) {
+              addElectricFieldLine( electricFieldSensor.position );
             }
+            this.startOldTime = this.startNewTime;
+
+    //        if ( event.pointer.isTouch ) {
+          //    globalPoint.addXY( 0, -2 * ChargesAndFieldsConstants.ELECTRIC_FIELD_SENSOR_CIRCLE_RADIUS );
+       //     }
 
             // move this node upward so that the cursor touches the bottom of the chargedParticle
             electricFieldSensor.position = modelViewTransform.viewToModelPosition( globalPoint );
@@ -235,7 +249,8 @@ define( function( require ) {
         if ( isInteractive ) {
           self.cursor = 'pointer';
           self.addInputListener( self.movableDragHandler );
-        } else {
+        }
+        else {
           self.cursor = null;
           self.removeInputListener( self.movableDragHandler );
         }
@@ -302,9 +317,11 @@ define( function( require ) {
 
       if ( exponent >= options.maxDecimalPlaces ) {
         decimalPlaces = 0;
-      } else if ( exponent > 0 ) {
+      }
+      else if ( exponent > 0 ) {
         decimalPlaces = options.maxDecimalPlaces - exponent;
-      } else {
+      }
+      else {
         decimalPlaces = options.maxDecimalPlaces;
       }
 
