@@ -1,17 +1,9 @@
-Charges And Fields
+Charges And Fields with Electric Field Lines
 =============
-"Charges And Fields" is an educational simulation in HTML5, by <a href="https://phet.colorado.edu/" target="_blank">PhET Interactive Simulations</a>
+"Charges And Fields" is an educational simulation in HTML5, that is forked from  <a href="https://phet.colorado.edu/" target="_blank">PhET Interactive Simulations</a>
 at the University of Colorado Boulder.
-For a description of this simulation, associated resources, and a link to the published version,
-<a href="https://phet.colorado.edu/en/simulation/charges-and-fields" target="_blank">visit the simulation's web page</a>.
 
-### Try it!
-
-<a href="https://phet.colorado.edu/sims/html/charges-and-fields/latest/charges-and-fields_en.html" target="_blank">Click here to run "Charges And Fields".</a>
-
-<a href="https://phet.colorado.edu/sims/html/charges-and-fields/latest/charges-and-fields_en.html" target="_blank">
-<img src="https://raw.githubusercontent.com/phetsims/charges-and-fields/master/assets/charges-and-fields-screenshot.png" alt="Screenshot" style="width: 400px;"/>
-</a>
+This forked version supports electric field lines. Electric field lines are displayed when double tapping/clicking on an electric field sensor.
 
 ### Documentation
 The <a href="http://bit.ly/phet-development-overview" target="_blank">PhET Development Overview</a> is the most complete guide to PhET Simulation
@@ -25,7 +17,7 @@ git clone https://github.com/phetsims/assert.git
 git clone https://github.com/phetsims/axon.git
 git clone https://github.com/phetsims/babel.git
 git clone https://github.com/phetsims/brand.git
-git clone https://github.com/phetsims/charges-and-fields.git
+git clone https://github.com/veillette/charges-and-fields.git
 git clone https://github.com/phetsims/chipper.git
 git clone https://github.com/phetsims/dot.git
 git clone https://github.com/phetsims/joist.git
@@ -42,11 +34,6 @@ git clone https://github.com/phetsims/tandem.git
 
 (3) Open `http://localhost/charges-and-fields/charges-and-fields_en.html` (You will probably need to modify this URL based on your HTTP port and relative path.)
 
-### Get Involved
-
-Contact us at our Google Group: <a href="http://groups.google.com/forum/#!forum/developing-interactive-simulations-in-html5" target="_blank">Developing Interactive Simulations in HTML5</a>
-
-Help us improve, create a <a href="http://github.com/phetsims/charges-and-fields/issues/new" target="_blank">New Issue</a>
 
 ### License
 See the <a href="https://github.com/phetsims/charges-and-fields/blob/master/LICENSE" target="_blank">LICENSE</a>
