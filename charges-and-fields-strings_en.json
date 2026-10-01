@@ -1,6 +1,6 @@
 {
   "charges-and-fields.title": {
-    "value": "Charges And Fields"
+    "value": "Charges and Fields"
   },
   "plusOneNanoC": {
     "value": "+1 nC"
@@ -12,7 +12,7 @@
     "value": "Electric Field"
   },
   "directionOnly": {
-    "value": "Direction only"
+    "value": "Direction Only"
   },
   "voltage": {
     "value": "Voltage"
@@ -34,6 +34,9 @@
   },
   "angleUnit": {
     "value": "deg"
+  },
+  "snapToGrid": {
+    "value": "Snap to Grid"
   },
   "voltageUnit": {
     "value": "V"
