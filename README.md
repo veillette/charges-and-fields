@@ -12,6 +12,11 @@ charges move, are added or removed, or when Reset All is pressed.
 
 <img src="https://raw.githubusercontent.com/veillette/charges-and-fields/main/assets/Charges-And-Fields-Screenshot-With-E-Lines.png" alt="Electric field lines screenshot" style="width: 400px;"/>
 
+### Try it
+
+[Run the simulation with electric field lines](https://veillette.github.io/charges-and-fields/).
+Double-click or double-tap a sensor to draw a field line.
+
 ### Documentation
 
 The <a href="https://github.com/phetsims/phet-info/blob/main/doc/phet-development-overview.md" target="_blank">PhET
@@ -73,6 +78,24 @@ being included in the build.
 
 (3) Open in the
 browser: `http://localhost/charges-and-fields/build/adapted-from-phet/charges-and-fields_en_adapted-from-phet.html`
+
+### GitHub Pages build
+
+The standalone simulation is published from `docs/index.html` on `main`. It contains the simulation code,
+images, sounds, and English strings in one file, so visitors do not need the PhET development dependencies.
+
+To refresh the published build after changing the simulation, first build it with the command above, then run:
+
+```sh
+node scripts/prepare-pages.mjs
+git add docs
+git commit -m "Refresh GitHub Pages build"
+git push origin main
+```
+
+GitHub Pages is configured to deploy the `/docs` folder from `main`. The `.nojekyll` file keeps the generated
+HTML intact. `docs/LICENSE.txt` contains the source license; the standalone simulation also includes PhET's
+attribution and third-party license information.
 
 ### Checking electric field lines
 
