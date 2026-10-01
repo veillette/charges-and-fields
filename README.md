@@ -10,7 +10,7 @@ This fork adds electric field lines to the upstream simulation. Double-click or 
 sensor to draw an orange field line through its position, with arrows showing the field direction. Lines clear when
 charges move, are added or removed, or when Reset All is pressed.
 
-<img src="https://raw.githubusercontent.com/veillette/charges-and-fields/master/assets/Charges-And-Fields-Screenshot-With-E-Lines.png" alt="Electric field lines screenshot" style="width: 400px;"/>
+<img src="https://raw.githubusercontent.com/veillette/charges-and-fields/main/assets/Charges-And-Fields-Screenshot-With-E-Lines.png" alt="Electric field lines screenshot" style="width: 400px;"/>
 
 ### Documentation
 
